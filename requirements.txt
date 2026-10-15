@@ -7,3 +7,4 @@ peft>=0.13
 trl>=0.20
 bitsandbytes>=0.44
 accelerate>=1.0
+# unsloth  # optional: small-GPU training, see README (pip install unsloth)

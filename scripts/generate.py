@@ -8,8 +8,8 @@ import argparse
 from pathlib import Path
 
 import torch
-from peft import PeftModel
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftConfig, PeftModel
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -23,17 +23,22 @@ MODE_PREFIX = {
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base-model", default="meta-llama/Llama-3.1-8B")
+    parser.add_argument("--base-model", help="defaults to the model the adapter was trained on")
     parser.add_argument("--adapter", default=str(ROOT / "outputs" / "fantasy-ai-lora"))
     parser.add_argument("--prompt", required=True)
     parser.add_argument("--mode", choices=MODE_PREFIX, default="novel")
     parser.add_argument("--max-new-tokens", type=int, default=600)
     parser.add_argument("--temperature", type=float, default=0.9)
+    parser.add_argument("--load-in-4bit", action="store_true", help="fit 7B-8B models in 8 GB VRAM")
     args = parser.parse_args()
 
     tokenizer = AutoTokenizer.from_pretrained(args.adapter)
+    base_model = args.base_model or PeftConfig.from_pretrained(args.adapter).base_model_name_or_path
+    quant = None
+    if args.load_in_4bit or "bnb-4bit" in base_model:
+        quant = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16)
     model = AutoModelForCausalLM.from_pretrained(
-        args.base_model, torch_dtype=torch.bfloat16, device_map="auto"
+        base_model, torch_dtype=torch.bfloat16, quantization_config=quant, device_map="auto"
     )
     model = PeftModel.from_pretrained(model, args.adapter)
 

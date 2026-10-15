@@ -41,6 +41,32 @@ model without that gate.
 No GPU? Rent one by the hour (RunPod, Lambda, Vast.ai) or use Google Colab.
 One epoch over this corpus on a single 4090 takes a few hours.
 
+## Training on a laptop (8 GB VRAM) with Unsloth
+
+[Unsloth](https://github.com/unslothai/unsloth) makes QLoRA fine-tuning about
+2x faster and uses much less VRAM, so an 8 GB laptop GPU is enough.
+
+```bash
+pip install unsloth                          # installs a matching torch/trl too
+python scripts/train_unsloth.py              # Qwen2.5-3B (4-bit), ~5-6 GB VRAM
+python scripts/generate.py --prompt "The bone-witches of Harrowmere did not bury their dead."
+```
+
+| Model (4-bit)                         | Fits in 8 GB?                         | Prose quality |
+|---------------------------------------|---------------------------------------|---------------|
+| `unsloth/Llama-3.2-3B-bnb-4bit`       | Yes, comfortably                      | Good          |
+| `unsloth/Qwen2.5-3B-bnb-4bit` (default) | Yes, comfortably                    | Good          |
+| `unsloth/Meta-Llama-3.1-8B-bnb-4bit`  | Just; `--max-seq-length 1024 --batch-size 1 --grad-accum 16` | Better |
+
+Tips:
+- Start with the 3B model and a few public-domain books to make sure
+  everything works end to end, then scale up.
+- "CUDA out of memory" → lower `--max-seq-length` and close other GPU apps.
+- On Windows, if `pip install unsloth` gives you trouble, run it inside WSL2
+  (Ubuntu). Your NVIDIA GPU works there.
+- Laptops throttle when hot. Keep it plugged in and well ventilated, since a
+  run can take many hours.
+
 ## About the books you listed
 
 *Lord of the Rings, Harry Potter, A Song of Ice and Fire, The Witcher,
