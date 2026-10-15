@@ -1,0 +1,7 @@
+# Book text is large, and licensed books must never be committed.
+data/raw/**/*.txt
+data/processed/*.jsonl
+outputs/
+__pycache__/
+*.pyc
+.venv/

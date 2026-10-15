@@ -1,0 +1,49 @@
+# Public-domain fantasy & myth that is legal to download and train on.
+# The downloader looks each one up on Project Gutenberg (via the Gutendex API)
+# by title + author, so no hard-coded IDs are needed. Add more freely.
+#
+# Copyrighted works (Tolkien, Rowling, Martin, Sapkowski, Brooks, TV scripts…)
+# do NOT go here. See README.md -> "About the books you listed".
+
+books:
+  # --- Founders of modern fantasy ---
+  - {title: "Phantastes", author: "MacDonald"}
+  - {title: "Lilith", author: "MacDonald"}
+  - {title: "The Princess and the Goblin", author: "MacDonald"}
+  - {title: "The Wood Beyond the World", author: "Morris"}
+  - {title: "The Well at the World's End", author: "Morris"}
+  - {title: "The Gods of Pegana", author: "Dunsany"}
+  - {title: "A Dreamer's Tales", author: "Dunsany"}
+  - {title: "The Book of Wonder", author: "Dunsany"}
+  - {title: "The Worm Ouroboros", author: "Eddison"}
+  - {title: "The Night Land", author: "Hodgson"}
+
+  # --- Sword & sorcery / adventure ---
+  - {title: "A Princess of Mars", author: "Burroughs"}
+  - {title: "The Gods of Mars", author: "Burroughs"}
+  - {title: "King Solomon's Mines", author: "Haggard"}
+  - {title: "She", author: "Haggard"}
+
+  # --- Dark fantasy / supernatural (Supernatural, The Originals vibes) ---
+  - {title: "Dracula", author: "Stoker"}
+  - {title: "Carmilla", author: "Le Fanu"}
+  - {title: "Frankenstein", author: "Shelley"}
+  - {title: "The Strange Case of Dr. Jekyll and Mr. Hyde", author: "Stevenson"}
+  - {title: "The Turn of the Screw", author: "James"}
+
+  # --- Myth, legend, fairy tale (the roots Tolkien & Sapkowski drew on) ---
+  - {title: "Beowulf", author: ""}
+  - {title: "Le Morte d'Arthur", author: "Malory"}
+  - {title: "The Kalevala", author: ""}
+  - {title: "Grimms' Fairy Tales", author: "Grimm"}
+  - {title: "The Blue Fairy Book", author: "Lang"}
+  - {title: "The Red Fairy Book", author: "Lang"}
+  - {title: "The Arabian Nights", author: "Lang"}
+  - {title: "The Elder Eddas", author: ""}
+  - {title: "The Mabinogion", author: ""}
+
+  # --- Whimsical / portal fantasy ---
+  - {title: "Alice's Adventures in Wonderland", author: "Carroll"}
+  - {title: "The Wonderful Wizard of Oz", author: "Baum"}
+  - {title: "Peter Pan", author: "Barrie"}
+  - {title: "The Jungle Book", author: "Kipling"}
